@@ -28,10 +28,8 @@ Simple database router was originally written for personal and work purposes.
            'NAME': BASE_DIR / 'default.sqlite3',
        },
        'auth_db': {
-           'ENGINE': 'django.db.backends.oracle',
-           'NAME': '172.16.50.201/riskpdb',
-           'USER': 'CR',
-           'PASSWORD': 'newpa$$word'
+           'ENGINE': 'django.db.backends.sqlite3',
+           'NAME': BASE_DIR / 'auth.sqlite3',
        },
    }
     ```
