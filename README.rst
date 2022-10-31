@@ -1,19 +1,20 @@
 =====
-Asakabank Risk Assessment backend SDK
+Simple database router.
 =====
 
-Our first implementation of custom SDK
+Simple database router was originally written for personal and work purposes.
+
 
 Quick start
 -----------
 
-1. Add "abra_sdk" to your INSTALLED_APPS setting like this::
+1. Add "django_db_router" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...
-        'abra_sdk',
+        'django_db_router',
         ...
     ]
 
 
-2. Next steps will be explained when we understand them =)
+2. Next steps will be explained later xD
