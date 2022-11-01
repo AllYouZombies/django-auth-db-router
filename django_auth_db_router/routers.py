@@ -10,7 +10,7 @@ class AuthRouter:
     try:
         auth_db = settings.AUTH_DB
     except NameError:
-        auth_db=  'default'
+        auth_db = 'default'
 
     def db_for_read(self, model, **hints):
         """
