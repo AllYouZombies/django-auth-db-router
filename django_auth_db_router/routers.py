@@ -7,25 +7,28 @@ class AuthRouter:
     auth and contenttypes applications.
     """
     route_app_labels = {'auth', 'contenttypes', 'admin', }
-    try:
-        auth_db = settings.AUTH_DB
-    except NameError:
-        auth_db = 'default'
 
     try:
         token_table = settings.REST_AUTH_TOKEN_TABLE
     except NameError:
         token_table = 'AUTHENTICATION_TOKEN'
 
+    route_db_tables = {token_table, 'django_session'}
+
+    try:
+        auth_db = settings.AUTH_DB
+    except NameError:
+        auth_db = 'default'
+
     def db_for_read(self, model, **hints):
-        if model._meta.db_table == self.token_table:
+        if model._meta.db_table in self.route_db_tables:
             return self.auth_db
         if model._meta.app_label in self.route_app_labels:
             return self.auth_db
         return None
 
     def db_for_write(self, model, **hints):
-        if model._meta.db_table == self.token_table:
+        if model._meta.db_table in self.route_db_tables:
             return self.auth_db
         if model._meta.app_label in self.route_app_labels:
             return self.auth_db
@@ -35,8 +38,8 @@ class AuthRouter:
         if (
                 obj1._meta.app_label in self.route_app_labels or
                 obj2._meta.app_label in self.route_app_labels or
-                obj1._meta.db_table == self.token_table or
-                obj2._meta.db_table == self.token_table
+                obj1._meta.db_table in self.route_db_tables or
+                obj2._meta.db_table in self.route_db_tables
         ):
             return True
         return None
