@@ -21,6 +21,8 @@ class AuthRouter:
         auth_db = 'default'
 
     def db_for_read(self, model, **hints):
+        if hasattr(model, 'params') and getattr(model.params, 'db'):
+            return getattr(model.params, 'db')
         if model._meta.db_table in self.route_db_tables:
             return self.auth_db
         if model._meta.app_label in self.route_app_labels:
@@ -28,6 +30,8 @@ class AuthRouter:
         return None
 
     def db_for_write(self, model, **hints):
+        if hasattr(model, 'params') and getattr(model.params, 'db'):
+            return getattr(model.params, 'db')
         if model._meta.db_table in self.route_db_tables:
             return self.auth_db
         if model._meta.app_label in self.route_app_labels:
